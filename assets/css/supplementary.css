@@ -1,0 +1,22 @@
+.supersized{
+    font-size: 60px;
+}
+
+@media screen and (min-width: 768px) {
+
+    .supersized{
+        font-size: 100px;
+    }
+
+}
+
+body {
+    background-image: url(/assets/images/watermark.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+.jumbotron{
+    background: rgba(238, 238, 238, .5);
+}
