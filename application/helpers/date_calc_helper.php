@@ -51,10 +51,10 @@ if ( ! function_exists('convert_time')){
         }
 
         if(! in_array($datePartFrom, $validDatePartFrom)) {
-            throw new InvalidArgumentException('$datePartTo is not in the list of valid date parts - weeks, days');            
+            throw new InvalidArgumentException('$datePartFrom is not in the list of valid date parts - weeks, days');            
         }
 
-        if(! is_int($datePart)) {
+        if(! in_array($datePartTo, $validDatePartTo)) {
             throw new InvalidArgumentException('$datePartTo is not in the list of valid date parts - seconds, minutes, hours, years');            
         }
 
