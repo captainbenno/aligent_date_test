@@ -2,8 +2,7 @@
 
 // Various date calculation helpers
 
-if ( ! function_exists('number_of_days'))
-{
+if ( ! function_exists('number_of_days')){
     // calculate the amount of days between two dates
     function number_of_days($date1, $date2)
     {
@@ -13,8 +12,7 @@ if ( ! function_exists('number_of_days'))
     }   
 }
 
-if ( ! function_exists('number_of_weekdays'))
-{
+if ( ! function_exists('number_of_weekdays') ){
     // calculate the amount of weekdays between two dates
     function number_of_weekdays($date1, $date2)
     {
@@ -22,9 +20,9 @@ if ( ! function_exists('number_of_weekdays'))
         $weekdays = 0;
         $workingDays = [1, 2, 3, 4, 5]; 
         $interval = new DateInterval('P1D');
-        $daterange = new DatePeriod($date1, $interval ,$date2);
+         $daterange = new DatePeriod($date1, $interval ,$date2);
         foreach($daterange as $date){
-            if (in_array($date->format('N'), $workingDays)){
+            if ( in_array($date->format('N'), $workingDays)) {
                 $weekdays++;
             }
         }
@@ -32,8 +30,7 @@ if ( ! function_exists('number_of_weekdays'))
     }   
 }
 
-if ( ! function_exists('number_of_complete_weeks'))
-{   
+if ( ! function_exists('number_of_complete_weeks') ){   
     // calculate the amount of complete weeks between two dates
     function number_of_complete_weeks($date1, $date2)
     {
@@ -42,8 +39,7 @@ if ( ! function_exists('number_of_complete_weeks'))
     }   
 }
 
-if ( ! function_exists('convert_time'))
-{
+if ( ! function_exists('convert_time')){
     // convert the datepart (days or weeks) passed in as an integer to another format
     function convert_time($datePart, $datePartFrom, $datePartTo)
     {
@@ -63,7 +59,7 @@ if ( ! function_exists('convert_time'))
         }
 
         // convert $datePart to seconds as a base to work everything else from
-        if( $datePartFrom == 'days'){
+        if( $datePartFrom == 'days') {
             $datePartSeconds = $datePart*24*60*60;
         } else {
             // assume weeks
@@ -90,7 +86,7 @@ if ( ! function_exists('is_date'))
     function is_date($date2Check)
     { 
         $date = date_parse($date2Check);
-        if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])){
+        if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])) {
             return true;
         } else {
             throw new InvalidArgumentException('Argument is not a valid date');
@@ -105,14 +101,14 @@ if ( ! function_exists('gmt_offset_date'))
     function gmt_offset_date($gmtTimeZone,$date)
     { 
         $modifier = substr($gmtTimeZone, 0,1);
-        if( $modifier == "+" || $modifier == '-'){
+        if( $modifier == "+" || $modifier == '-') {
             // split the gmtTimeZone into modifier, hours and minutes
             $timeOffset = str_replace($modifier, '', $gmtTimeZone);
             $hoursOffset = intval(explode(':',$timeOffset)[0]);
             $minsOffset = intval(explode(':',$timeOffset)[1]);
             // create a total minutes offset to apply to the date
             $totalMinsOffset = ($hoursOffset*60)+$minsOffset;
-            if( $modifier == "+"){
+            if( $modifier == "+") {
                $date->add( new DateInterval('PT'.$totalMinsOffset.'M'));
             } else {
                 $date->sub( new DateInterval('PT'.$totalMinsOffset.'M'));
