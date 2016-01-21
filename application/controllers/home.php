@@ -23,20 +23,19 @@ class Home extends CI_Controller {
         $dateFrom = $this->input->post('dateFrom');
         $dateTo = $this->input->post('dateTo');
 
+
+
         // do we have valid dates?
         is_date($dateFrom);
         is_date($dateTo);
         
-        // convert strings to date objects
-        $dateFrom = new DateTime($dateFrom);
-        $dateTo = new DateTime($dateTo);
-
         // include timezone adjustment
         $dateFromTimeZone = $this->input->post('dateFromTimeZone');
         $dateToTimeZone = $this->input->post('dateToTimeZone');
 
-        $dateFrom = gmt_offset_date($dateFromTimeZone,$dateFrom);
-        $dateTo = gmt_offset_date($dateToTimeZone,$dateTo);
+        // convert strings to date objects including the time zone
+        $dateFrom = new DateTime($dateFrom.' '.$dateFromTimeZone);
+        $dateTo = new DateTime($dateTo.' '.$dateToTimeZone);
 
         // check if dateFrom is earlier than dateTo, if not then swap them over, we are caldulating
         // the difference so this should be fine.

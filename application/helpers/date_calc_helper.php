@@ -95,29 +95,3 @@ if ( ! function_exists('is_date'))
     }   
 }
 
-if ( ! function_exists('gmt_offset_date'))
-{
-    // add the gmt offset to the date passed in, offset must me in gmt format eg: +08:30
-    function gmt_offset_date($gmtTimeZone,$date)
-    { 
-        $modifier = substr($gmtTimeZone, 0,1);
-        if( $modifier == "+" || $modifier == '-') {
-            // split the gmtTimeZone into modifier, hours and minutes
-            $timeOffset = str_replace($modifier, '', $gmtTimeZone);
-            $hoursOffset = intval(explode(':',$timeOffset)[0]);
-            $minsOffset = intval(explode(':',$timeOffset)[1]);
-            // create a total minutes offset to apply to the date
-            $totalMinsOffset = ($hoursOffset*60)+$minsOffset;
-            if( $modifier == "+") {
-               $date->add( new DateInterval('PT'.$totalMinsOffset.'M'));
-            } else {
-                $date->sub( new DateInterval('PT'.$totalMinsOffset.'M'));
-            }
-            return $date;
-        } else {            
-            throw new InvalidArgumentException('Argument is not a valid gmt marker');
-            return false;            
-        }
-
-    }   
-}

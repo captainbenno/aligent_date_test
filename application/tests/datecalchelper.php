@@ -66,16 +66,4 @@ class DateCalcHelperTest extends CITestCase
         $this->assertEquals(true,is_date($date));
     }
 
-    // Test to make sure a date can have a gmt offset marker applied correctly.
-    public function test_gmt_offset_date()
-    {
-        $date = '2011-01-02 00:00:00';
-        $timeZone = '+08:30';
-        //convert strings to date objects
-        $date = new DateTime($date);
-        $dateResult = new DateTime('2011-01-02 08:30:00');
-
-        $this->assertEquals($dateResult,gmt_offset_date($timeZone, $date));
-    }
-
 }
